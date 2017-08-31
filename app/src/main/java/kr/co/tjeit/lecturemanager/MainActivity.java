@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView studentListView;
     private ArrayAdapter<String> studentAdapter;
 
+//    협업하고 브런치기능 활성화.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
