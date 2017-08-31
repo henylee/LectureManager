@@ -2,7 +2,6 @@ package kr.co.tjeit.lecturemanager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,7 +21,6 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 
-import kr.co.tjeit.lecturemanager.data.User;
 import kr.co.tjeit.lecturemanager.util.ContextUtil;
 
 public class LoginActivity extends BaseActivity {
@@ -153,7 +151,7 @@ public class LoginActivity extends BaseActivity {
                 public void onSuccess(UserProfile result) {
                     Toast.makeText(mContext, result.getNickname()+"님이 로그인했습니다.", Toast.LENGTH_SHORT).show();
                     ContextUtil.login(mContext, result.getId()+"", result.getNickname(), result.getProfileImagePath());
-                    Intent intent = new Intent(mContext, MainActivity.class);
+                    Intent intent = new Intent(mContext, StudentListActivity.class);
                     startActivity(intent);
                     finish();
                 }
