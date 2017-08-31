@@ -2,26 +2,26 @@ package kr.co.tjeit.lecturemanager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     String[] students = {"고동윤", "권성민", "김현철", "박석영",
             "박수현", "박영주", "손익상", "이승헌", "이요한", "한상열"};
 
     ArrayList<String> myStudentsArrayList;
 
-    private ListView studentListView;
     private ArrayAdapter<String> studentAdapter;
+    private android.widget.Button profileBtn;
+    private ListView studentListView;
 
 //    협업하고 브런치기능 활성화.
 
@@ -30,30 +30,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myStudentsArrayList = new ArrayList<String>();
-        myStudentsArrayList.add("고동윤");
-        myStudentsArrayList.add("권성민");
-        myStudentsArrayList.add("김현철");
-        myStudentsArrayList.add("박석영");
-        myStudentsArrayList.add("박수현");
-        myStudentsArrayList.add("박영주");
-        myStudentsArrayList.add("손익상");
-        myStudentsArrayList.add("이승헌");
-        myStudentsArrayList.add("이요한");
-        myStudentsArrayList.add("한상열");
 
-        studentListView = (ListView) findViewById(R.id.studentListView);
+        bindViews();
+        setupEvents();
+        setValues();
+    }
 
-        studentAdapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1,
-                myStudentsArrayList);
-        studentListView.setAdapter(studentAdapter);
+    @Override
+    public void setupEvents() {
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         studentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Toast.makeText(MainActivity.this, position+"번 줄", Toast.LENGTH_SHORT).show();
 
-                Intent myIntent = new Intent(MainActivity.this, ViewStudentInfoActivity.class);
+                Intent myIntent = new Intent(mContext, ViewStudentInfoActivity.class);
                 myIntent.putExtra("studentName", myStudentsArrayList.get(position));
 
                 startActivity(myIntent);
@@ -79,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
                 myBuilder.setNegativeButton("취소", null);
                 myBuilder.show();
 
@@ -86,6 +86,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    public void setValues() {
+        myStudentsArrayList.add("고동윤");
+        myStudentsArrayList.add("권성민");
+        myStudentsArrayList.add("김현철");
+        myStudentsArrayList.add("박석영");
+        myStudentsArrayList.add("박수현");
+        myStudentsArrayList.add("박영주");
+        myStudentsArrayList.add("손익상");
+        myStudentsArrayList.add("이승헌");
+        myStudentsArrayList.add("이요한");
+        myStudentsArrayList.add("한상열");
+
+        studentAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, myStudentsArrayList);
+        studentListView.setAdapter(studentAdapter);
+    }
+
+    @Override
+    public void bindViews() {
+        this.studentListView = (ListView) findViewById(R.id.studentListView);
+        this.profileBtn = (Button) findViewById(R.id.profileBtn);
     }
 }
 

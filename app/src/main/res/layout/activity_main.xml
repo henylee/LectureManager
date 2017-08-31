@@ -8,19 +8,40 @@
     android:orientation="vertical"
     tools:context="kr.co.tjeit.lecturemanager.MainActivity">
 
-    <TextView
-        android:background="#555555"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:gravity="center"
+    <FrameLayout
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="수강생 목록"/>
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="#555555">
+
+        <Button
+            android:id="@+id/profileBtn"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:background="#00000000"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 조회"/>
+
+        <TextView
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수강생 목록"/>
+
+    </FrameLayout>
 
     <ListView
         android:id="@+id/studentListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     </ListView>
 
 </LinearLayout>

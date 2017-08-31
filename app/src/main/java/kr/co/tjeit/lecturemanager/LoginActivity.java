@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -20,7 +22,9 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 
-public class LoginActivity extends AppCompatActivity {
+import kr.co.tjeit.lecturemanager.util.ContextUtil;
+
+public class LoginActivity extends BaseActivity {
 
     private Button signUpBtn;
     private Button loginBtn;
@@ -29,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
     KakaoSessionCallback ksc;
     CallbackManager callbackManager;
+
     private com.facebook.login.widget.LoginButton fbLoginBtn;
     private com.kakao.usermgmt.LoginButton kakaoLoginBtn;
 
@@ -37,17 +42,40 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        this.kakaoLoginBtn = (LoginButton) findViewById(R.id.kakaoLoginBtn);
-        this.fbLoginBtn = (com.facebook.login.widget.LoginButton) findViewById(R.id.fbLoginBtn);
+        bindViews();
+        setupEvents();
+        setValues();
 
         myActivity = this;
+    }
+
+    @Override
+    public void setupEvents() {
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(mContext, SignUpActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void setValues() {
 
         ksc = new KakaoSessionCallback();
         Session.getCurrentSession().addCallback(ksc);
-        callbackManager = CallbackManager.Factory.create();
 
-        signUpBtn = (Button) findViewById(R.id.signUpBtn);
-        loginBtn = (Button) findViewById(R.id.loginBtn);
+        callbackManager = CallbackManager.Factory.create();
 
         fbLoginBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -66,22 +94,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        signUpBtn.setOnClickListener(new View.OnClickListener() {
+        ProfileTracker pt = new ProfileTracker() {
             @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(myIntent);
-            }
-        });
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                if (currentProfile==null) {
+                    Toast.makeText(mContext, "로그아웃 처리 완료.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(mContext, currentProfile.getName()+"님 접속", Toast.LENGTH_SHORT).show();
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                    ContextUtil.login(mContext, currentProfile.getId(),"없음", currentProfile.getName(), currentProfile.getProfilePictureUri(500,500).toString());
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    startActivity(intent);
+                }
             }
-        });
+        };
     }
 
     @Override
@@ -93,6 +120,14 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void bindViews() {
+        this.kakaoLoginBtn = (LoginButton) findViewById(R.id.kakaoLoginBtn);
+        this.fbLoginBtn = (com.facebook.login.widget.LoginButton) findViewById(R.id.fbLoginBtn);
+        signUpBtn = (Button) findViewById(R.id.signUpBtn);
+        loginBtn = (Button) findViewById(R.id.loginBtn);
     }
 
     private class KakaoSessionCallback implements ISessionCallback {
@@ -114,9 +149,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onSuccess(UserProfile result) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
-                    Toast.makeText(LoginActivity.this, result.getNickname()+"님이 로그인했습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, result.getNickname()+"님이 로그인했습니다.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             });
@@ -128,4 +163,5 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
+
 }
