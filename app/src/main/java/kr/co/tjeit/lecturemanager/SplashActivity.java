@@ -13,6 +13,8 @@ import android.util.Log;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import kr.co.tjeit.lecturemanager.util.GlobalData;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -32,6 +34,8 @@ public class SplashActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
 
         }
+
+        GlobalData.intitGlobalData();
 
         new Handler().postDelayed(new Runnable() {
             @Override

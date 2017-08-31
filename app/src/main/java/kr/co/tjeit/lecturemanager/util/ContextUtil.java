@@ -16,7 +16,6 @@ public class ContextUtil {
     private static final String prefName = "LectureManagerPref";
 
     private static final String USER_ID = "USER_ID";
-    private static final String USER_PW = "USER_PW";
     private static final String USER_NAME = "USER_NAME";
     private static final String USER_PROFILE_URL = "USER_PROFILE_URL";
 
@@ -29,17 +28,6 @@ public class ContextUtil {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
         return pref.getString(USER_ID, "");
     }
-
-    public static void setUserPw(Context context, String pw) {
-        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-        pref.edit().putString(USER_PW, pw).commit();
-    }
-
-    public static String getUserPw(Context context) {
-        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-        return pref.getString(USER_PW, "");
-    }
-
 
     public static void setUserName(Context context, String input) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
@@ -62,11 +50,10 @@ public class ContextUtil {
         return pref.getString(USER_PROFILE_URL, "");
     }
 
-    public static void login(Context context, String id, String pw, String name, String url) {
+    public static void login(Context context, String id, String name, String url) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
         pref.edit().putString(USER_ID, id).commit();
-        pref.edit().putString(USER_PW, pw).commit();
         pref.edit().putString(USER_NAME, name).commit();
         pref.edit().putString(USER_PROFILE_URL, url).commit();
     }
@@ -75,7 +62,6 @@ public class ContextUtil {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
         pref.edit().putString(USER_ID, "").commit();
-        pref.edit().putString(USER_PW, "").commit();
         pref.edit().putString(USER_NAME, "").commit();
         pref.edit().putString(USER_PROFILE_URL, "").commit();
 
@@ -95,7 +81,6 @@ public class ContextUtil {
 //            빈칸이 아니다? 아이디가 O, 누군가 로그인 해있다.
             loginUser = new User();
             loginUser.setUserId(pref.getString(USER_ID, ""));
-            loginUser.setPassword(pref.getString(USER_PW, ""));
             loginUser.setName(pref.getString(USER_NAME, ""));
             loginUser.setProfileURL(pref.getString(USER_PROFILE_URL, ""));
 

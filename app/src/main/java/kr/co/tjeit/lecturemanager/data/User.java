@@ -1,13 +1,15 @@
 package kr.co.tjeit.lecturemanager.data;
 
+import java.io.Serializable;
+import java.util.Calendar;
+
 /**
  * Created by the on 2017-08-31.
  */
 
-public class User {
+public class User implements Serializable {
 
     private String userId;
-    private String password;
     private String name;
     private String profileURL;
 
@@ -15,11 +17,11 @@ public class User {
 
     }
 
-    public User(String userId, String password, String name, String profileURL) {
+    public User(String userId, String name, String profileURL) {
         this.userId = userId;
-        this.password = password;
         this.name = name;
         this.profileURL = profileURL;
+
     }
 
     public String getUserId() {
@@ -28,14 +30,6 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {

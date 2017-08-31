@@ -22,6 +22,7 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 
+import kr.co.tjeit.lecturemanager.data.User;
 import kr.co.tjeit.lecturemanager.util.ContextUtil;
 
 public class LoginActivity extends BaseActivity {
@@ -103,9 +104,10 @@ public class LoginActivity extends BaseActivity {
                 else {
                     Toast.makeText(mContext, currentProfile.getName()+"님 접속", Toast.LENGTH_SHORT).show();
 
-                    ContextUtil.login(mContext, currentProfile.getId(),"없음", currentProfile.getName(), currentProfile.getProfilePictureUri(500,500).toString());
+                    ContextUtil.login(mContext, currentProfile.getId(), currentProfile.getName(), currentProfile.getProfilePictureUri(500,500).toString());
                     Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         };
@@ -149,13 +151,13 @@ public class LoginActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(UserProfile result) {
+                    Toast.makeText(mContext, result.getNickname()+"님이 로그인했습니다.", Toast.LENGTH_SHORT).show();
+                    ContextUtil.login(mContext, result.getId()+"", result.getNickname(), result.getProfileImagePath());
                     Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
-                    Toast.makeText(mContext, result.getNickname()+"님이 로그인했습니다.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             });
-
         }
 
         @Override

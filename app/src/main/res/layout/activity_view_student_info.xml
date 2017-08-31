@@ -16,7 +16,6 @@
         android:textSize="20sp"
         android:gravity="center"/>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,12 +42,12 @@
             android:text="아이디"/>
 
         <TextView
+            android:id="@+id/studentIdTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="tempId"
             android:layout_marginTop="5dp"
             android:textSize="17sp"/>
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,11 +56,13 @@
             android:text="생일"/>
 
         <TextView
+            android:id="@+id/studentBirthTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2000년 00월 00일"
             android:layout_marginTop="5dp"
             android:textSize="17sp"/>
+
         <TextView
             android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
@@ -72,7 +73,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
+                android:id="@+id/studentTelTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000-0000-0000"
