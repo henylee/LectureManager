@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.tjeit.lecturemanager.R;
+import kr.co.tjeit.lecturemanager.data.Reply;
 import kr.co.tjeit.lecturemanager.data.User;
 
 /**
