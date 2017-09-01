@@ -28,6 +28,13 @@
             android:text="출석체크"
             android:layout_gravity="right|center_vertical"/>
 
+        <Button
+            android:id="@+id/studentListBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학생목록"
+            android:layout_gravity="left|center_vertical"/>
+
     </FrameLayout>
 
     <ListView

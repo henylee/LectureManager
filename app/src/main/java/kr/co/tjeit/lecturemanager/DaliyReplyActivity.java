@@ -28,6 +28,7 @@ public class DaliyReplyActivity extends BaseActivity {
     List<Reply> replyList = new ArrayList<>();
     CalendarDay mCalendarDay = null;
     private Button delitChkBtn;
+    private Button studentListBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,14 @@ public class DaliyReplyActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        studentListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, StudentListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -66,6 +75,7 @@ public class DaliyReplyActivity extends BaseActivity {
         this.replyBtn = (Button) findViewById(R.id.replyBtn);
         this.replyEdt = (EditText) findViewById(R.id.replyEdt);
         this.deliyReplyListView = (ListView) findViewById(R.id.deliyReplyListView);
+        this.studentListBtn = (Button) findViewById(R.id.studentListBtn);
         this.delitChkBtn = (Button) findViewById(R.id.delitChkBtn);
         this.deliyTxt = (TextView) findViewById(R.id.deliyTxt);
     }
