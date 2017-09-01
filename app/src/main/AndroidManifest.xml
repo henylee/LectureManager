@@ -59,7 +59,8 @@
         <activity android:name=".ViewStudentInfoActivity" />
         <activity android:name=".MyProfileActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".DaliyReplyActivity"></activity>
+        <activity android:name=".DaliyReplyActivity" />
+        <activity android:name=".DaliyCheckActivity"></activity>
     </application>
 
 </manifest>

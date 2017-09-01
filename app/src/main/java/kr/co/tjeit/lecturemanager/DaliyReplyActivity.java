@@ -1,7 +1,8 @@
 package kr.co.tjeit.lecturemanager;
 
-import android.icu.util.Calendar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -11,12 +12,10 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import kr.co.tjeit.lecturemanager.adapter.DateAdapter;
 import kr.co.tjeit.lecturemanager.data.Reply;
-import kr.co.tjeit.lecturemanager.util.GlobalData;
 
 public class DaliyReplyActivity extends BaseActivity {
 
@@ -28,6 +27,7 @@ public class DaliyReplyActivity extends BaseActivity {
     DateAdapter mDateAdpater;
     List<Reply> replyList = new ArrayList<>();
     CalendarDay mCalendarDay = null;
+    private Button delitChkBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,14 @@ public class DaliyReplyActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
+        delitChkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, DaliyCheckActivity.class);
+                intent.putExtra("출석확인날짜", mCalendarDay);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -58,6 +66,7 @@ public class DaliyReplyActivity extends BaseActivity {
         this.replyBtn = (Button) findViewById(R.id.replyBtn);
         this.replyEdt = (EditText) findViewById(R.id.replyEdt);
         this.deliyReplyListView = (ListView) findViewById(R.id.deliyReplyListView);
+        this.delitChkBtn = (Button) findViewById(R.id.delitChkBtn);
         this.deliyTxt = (TextView) findViewById(R.id.deliyTxt);
     }
 }
